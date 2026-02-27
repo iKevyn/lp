@@ -244,7 +244,7 @@ nav a.active .nav-dot { transform: translateX(-50%) scale(1); }
 
 /* Scroll hint */
 .scroll-hint {
-  position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+  position: absolute; bottom: 24px; left: 0; right: 0;
   display: flex; flex-direction: column; align-items: center; gap: 8px;
   opacity: 0; animation: fadeUp 1s ease 1.6s forwards;
 }
@@ -320,22 +320,15 @@ nav a.active .nav-dot { transform: translateX(-50%) scale(1); }
   text-align: center;
   padding: 44px 16px;
   background: var(--bg);
-  transition: background 0.3s, opacity 0.6s ease, transform 0.6s ease;
+  transition: background 0.3s;
   opacity: 0;
   transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease, background 0.3s;
 }
 .stat-item:hover { background: var(--bg-2); }
-.stat-item.revealed {
-  opacity: 1; transform: translateY(0);
-  animation: statPop 0.55s cubic-bezier(0.34,1.56,0.64,1) both;
-}
-.stat-item:nth-child(2) { transition-delay: 0.1s; animation-delay: 0.1s; }
-.stat-item:nth-child(3) { transition-delay: 0.2s; animation-delay: 0.2s; }
-@keyframes statPop {
-  from { transform: scale(0.78) translateY(16px); opacity: 0; }
-  60%  { transform: scale(1.04); }
-  to   { transform: scale(1) translateY(0); opacity: 1; }
-}
+.stat-item.revealed { opacity: 1; transform: translateY(0); }
+.stat-item:nth-child(2) { transition-delay: 0.1s; }
+.stat-item:nth-child(3) { transition-delay: 0.2s; }
 
 .stat-num {
   font-size: 52px;
@@ -367,14 +360,7 @@ nav a.active .nav-dot { transform: translateX(-50%) scale(1); }
   color: var(--accent);
   margin-bottom: 14px;
   display: block;
-  position: relative;
 }
-.section-label::after {
-  content: ''; position: absolute; left: 0; bottom: -4px;
-  width: 0; height: 1.5px; background: var(--accent);
-  transition: width 0.6s cubic-bezier(0.22,1,0.36,1);
-}
-.reveal.revealed .section-label::after { width: 100%; }
 
 .section-title {
   font-size: clamp(32px, 5vw, 52px);
@@ -397,7 +383,6 @@ nav a.active .nav-dot { transform: translateX(-50%) scale(1); }
   background: var(--bg-2);
   max-width: 100%;
   padding: 0;
-  border-top: 1px solid var(--border);
 }
 #servicos .section-inner {
   max-width: 980px;
@@ -661,7 +646,7 @@ nav a.active .nav-dot { transform: translateX(-50%) scale(1); }
 }
 
 /* ─── FAQ ─── */
-#faq { background: var(--bg-2); max-width: 100%; padding: 0; border-top: 1px solid var(--border); }
+#faq { background: var(--bg-2); max-width: 100%; padding: 0; }
 #faq .section-inner {
   max-width: 980px;
   margin: 0 auto;
@@ -1370,13 +1355,14 @@ if (matchMedia('(pointer:fine)').matches) {
 
 /* ── COUNTER ANIMATION ── */
 function animCount(el) {
-  const target = +el.dataset.target, dur = 1400, step = 16;
+  const target = parseInt(el.dataset.target);
+  const dur = 1200, step = 16;
   const inc = target / (dur / step);
-  let v = 0;
-  const t = setInterval(() => {
-    v = Math.min(v + inc, target);
-    el.textContent = Math.round(v);
-    if (v >= target) clearInterval(t);
+  let current = 0;
+  const timer = setInterval(() => {
+    current = Math.min(current + inc, target);
+    el.textContent = Math.round(current);
+    if (current >= target) clearInterval(timer);
   }, step);
 }
 
@@ -1447,17 +1433,6 @@ document.querySelectorAll('.bento-card').forEach(card => {
     });
   }, { threshold: 0.35 }).observe(h2);
 })();
-
-/* ── MAGNETIC BUTTONS ── */
-document.querySelectorAll('.btn-primary, .btn-white').forEach(btn => {
-  btn.addEventListener('mousemove', e => {
-    const r = btn.getBoundingClientRect();
-    const x = e.clientX - r.left - r.width  / 2;
-    const y = e.clientY - r.top  - r.height / 2;
-    btn.style.transform = `translate(${x * 0.2}px, ${y * 0.3}px) scale(1.04)`;
-  });
-  btn.addEventListener('mouseleave', () => btn.style.transform = '');
-});
 
 /* ── NAV ACTIVE SECTION DOT ── */
 (function () {
