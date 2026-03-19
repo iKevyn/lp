@@ -354,103 +354,6 @@ nav a.active .nav-dot { transform: translateX(-50%) scale(1); }
   letter-spacing: -0.01em;
 }
 
-/* ─── CLIENTS CAROUSEL ─── */
-.clients-band {
-  padding: 80px 0;
-  overflow: hidden;
-  position: relative;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
-}
-.clients-band::before,
-.clients-band::after {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 120px;
-  z-index: 2;
-  pointer-events: none;
-}
-.clients-band::before {
-  left: 0;
-  background: linear-gradient(to right, var(--bg) 0%, transparent 100%);
-}
-.clients-band::after {
-  right: 0;
-  background: linear-gradient(to left, var(--bg) 0%, transparent 100%);
-}
-.clients-header {
-  text-align: center;
-  margin-bottom: 48px;
-  padding: 0 22px;
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.clients-header.revealed { opacity: 1; transform: translateY(0); }
-.clients-header .section-label { display: block; margin-bottom: 8px; }
-.clients-header p {
-  font-size: 26px;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  color: var(--text);
-}
-.carousel-row { display: flex; width: max-content; }
-.carousel-row--fwd { animation: carouselFwd 32s linear infinite; }
-.carousel-row--rev { animation: carouselRev 36s linear infinite; margin-top: 10px; }
-.clients-band:hover .carousel-row { animation-play-state: paused; }
-@keyframes carouselFwd { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@keyframes carouselRev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
-.logo-card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 180px;
-  height: 80px;
-  margin: 0 10px;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  background: var(--bg);
-  transition: border-color 0.3s, background 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s;
-  flex-shrink: 0;
-  position: relative;
-  overflow: hidden;
-}
-.logo-card:hover {
-  border-color: rgba(0,113,227,0.2);
-  background: #fafafa;
-  transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.07);
-}
-.logo-card::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.7) 50%, transparent 65%);
-  transform: translateX(-120%);
-  pointer-events: none;
-}
-.logo-card:hover::after { transform: translateX(120%); transition: transform 0.5s ease; }
-.logo-inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  padding: 16px 20px;
-  filter: grayscale(1) opacity(0.45);
-  transition: filter 0.3s ease;
-  user-select: none;
-}
-.logo-card:hover .logo-inner { filter: grayscale(0) opacity(1); }
-.logo-inner img {
-  max-width: 100%;
-  max-height: 44px;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  display: block;
-}
-
 /* ─── SECTION COMMON ─── */
 .section {
   max-width: 980px;
@@ -719,6 +622,7 @@ nav a.active .nav-dot { transform: translateX(-50%) scale(1); }
   justify-content: center;
   font-size: 100px;
   padding: 2px;
+  /* Animated gradient border */
   background: conic-gradient(from var(--angle, 0deg),
     rgba(0,113,227,0.5) 0deg,
     rgba(0,200,80,0.25) 120deg,
@@ -836,6 +740,7 @@ nav a.active .nav-dot { transform: translateX(-50%) scale(1); }
   position: relative;
   overflow: hidden;
 }
+/* Subtle glow behind cta text */
 .cta-strip::before {
   content: ''; position: absolute;
   width: 700px; height: 350px;
@@ -854,6 +759,7 @@ nav a.active .nav-dot { transform: translateX(-50%) scale(1); }
   margin-bottom: 16px;
 }
 
+/* CTA accent word */
 .cta-strip h2 .cta-accent {
   background: linear-gradient(135deg, #5ac8fa 0%, var(--accent) 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
@@ -891,6 +797,7 @@ nav a.active .nav-dot { transform: translateX(-50%) scale(1); }
 .btn-white.revealed { opacity: 1; transform: translateY(0); }
 .btn-white:hover { background: #f0f0f0; box-shadow: 0 18px 52px rgba(0,0,0,0.4); }
 
+/* CTA word reveal — each word stays together, letters animate inside */
 .cta-word {
   display: inline-block;
   white-space: nowrap;
@@ -985,6 +892,7 @@ footer {
 }
 .float-cta:hover { transform: scale(1.1); box-shadow: 0 8px 36px rgba(37,211,102,0.55); }
 .float-cta svg { width: 22px; height: 22px; }
+/* Pulse ring */
 .float-cta::before {
   content: ''; position: absolute; inset: -5px;
   border-radius: 50%; border: 2px solid rgba(37,211,102,0.4);
@@ -1046,6 +954,74 @@ footer {
   .footer-top { flex-direction: column; }
   .stats-inner { border-radius: 16px; }
   .stat-item { padding: 32px 10px; }
+}
+/* ─── CLIENTS CAROUSEL ─── */
+.clients-band {
+  padding: 80px 0;
+  overflow: hidden;
+  position: relative;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.clients-band::before,
+.clients-band::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 120px;
+  z-index: 2;
+  pointer-events: none;
+}
+.clients-band::before { left: 0; background: linear-gradient(to right, var(--bg) 0%, transparent 100%); }
+.clients-band::after  { right: 0; background: linear-gradient(to left,  var(--bg) 0%, transparent 100%); }
+
+.clients-header {
+  text-align: center;
+  margin-bottom: 48px;
+  padding: 0 22px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.clients-header.revealed { opacity: 1; transform: translateY(0); }
+.clients-header .section-label { display: block; margin-bottom: 8px; }
+.clients-header p { font-size: 26px; font-weight: 700; letter-spacing: -0.025em; color: var(--text); }
+
+.carousel-row { display: flex; width: max-content; }
+.carousel-row--fwd { animation: carouselFwd 32s linear infinite; }
+.carousel-row--rev { animation: carouselRev 36s linear infinite; margin-top: 10px; }
+.clients-band:hover .carousel-row { animation-play-state: paused; }
+
+@keyframes carouselFwd { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes carouselRev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+
+.logo-card {
+  display: flex; align-items: center; justify-content: center;
+  width: 180px; height: 80px; margin: 0 10px; border-radius: 14px;
+  border: 1px solid var(--border); background: var(--bg); flex-shrink: 0;
+  position: relative; overflow: hidden;
+  transition: border-color 0.3s, background 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s;
+}
+.logo-card:hover {
+  border-color: rgba(0,113,227,0.2); background: #fafafa;
+  transform: translateY(-4px) scale(1.03); box-shadow: 0 12px 32px rgba(0,0,0,0.07);
+}
+.logo-card::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.7) 50%, transparent 65%);
+  transform: translateX(-120%);
+}
+.logo-card:hover::after { transform: translateX(120%); transition: transform 0.5s ease; }
+
+.logo-inner {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; height: 100%; padding: 16px 20px;
+  filter: grayscale(1) opacity(0.45); transition: filter 0.3s ease;
+}
+.logo-card:hover .logo-inner { filter: grayscale(0) opacity(1); }
+.logo-inner img { max-width: 100%; max-height: 44px; width: auto; height: auto; object-fit: contain; display: block; }
+
+@media (max-width: 768px) {
   .logo-card { width: 148px; height: 68px; }
   .clients-band::before, .clients-band::after { width: 60px; }
 }
@@ -1144,15 +1120,6 @@ footer {
   </div>
 </div>
 
-<!-- CLIENTS CAROUSEL -->
-<div class="clients-band" id="clientes">
-  <div class="clients-header reveal">
-    <span class="section-label">Portfólio</span>
-    <p>Marcas que já trabalhamos.</p>
-  </div>
-  <div class="carousel-row carousel-row--fwd" id="row1"></div>
-</div>
-
 <!-- SERVICES -->
 <section id="servicos">
   <div class="section-inner">
@@ -1242,7 +1209,15 @@ footer {
     </div>
   </div>
 </section>
-
+<!-- CLIENTS CAROUSEL -->
+<div class="clients-band" id="clientes">
+  <div class="clients-header reveal">
+    <span class="section-label">Portfólio</span>
+    <p>Marcas que confiam.</p>
+  </div>
+  <div class="carousel-row carousel-row--fwd" id="row1"></div>
+  <div class="carousel-row carousel-row--rev" id="row2"></div>
+</div>
 <!-- ABOUT -->
 <section class="section" id="sobre">
   <div class="about-grid">
@@ -1399,23 +1374,6 @@ footer {
 </a>
 
 <script>
-/* ── CAROUSEL ── */
-const clients = [
-  { src: 'Logos/savannah.jpg',   alt: 'Savannah' },
-  { src: 'Logos/tangerina.png',  alt: 'Tangerina' },
-  { src: 'Logos/beach.png',      alt: 'Beach' },
-  { src: 'Logos/belletonn.png',  alt: 'Belletonn' },
-  { src: 'Logos/mama.webp',      alt: 'Mama' },
-  { src: 'Logos/notme.webp.png', alt: 'Not Me' },
-];
-function buildRow(el, items) {
-  el.innerHTML = [...items, ...items].map(c =>
-    `<div class="logo-card"><div class="logo-inner"><img src="${c.src}" alt="${c.alt}" loading="lazy"></div></div>`
-  ).join('');
-}
-buildRow(document.getElementById('row1'), clients);
-buildRow(document.getElementById('row2'), [...clients].reverse());
-
 /* ── SCROLL PROGRESS ── */
 const scrollBar = document.getElementById('scrollBar');
 window.addEventListener('scroll', () => {
@@ -1480,7 +1438,23 @@ if (matchMedia('(pointer:fine)').matches) {
     hero.style.filter    = `blur(${p * 4}px)`;
   }, { passive: true });
 })();
+/* ── CAROUSEL ── */
+const clients = [
+  { src: 'Logos/savannah.jpg',   alt: 'Savannah' },
+  { src: 'Logos/tangerina.png',  alt: 'Tangerina' },
+  { src: 'Logos/beach.png',      alt: 'Beach' },
+  { src: 'Logos/belletonn.png',  alt: 'Belletonn' },
+  { src: 'Logos/mama.webp',      alt: 'Mama' },
+  { src: 'Logos/notme.webp.png', alt: 'Not Me' },
+];
 
+function buildRow(el, items) {
+  el.innerHTML = [...items, ...items].map(c =>
+    `<div class="logo-card"><div class="logo-inner"><img src="${c.src}" alt="${c.alt}" loading="lazy"></div></div>`
+  ).join('');
+}
+
+buildRow(document.getElementById('row1'), clients);
 /* ── COUNTER ANIMATION ── */
 function animCount(el) {
   const target = parseInt(el.dataset.target);
@@ -1506,7 +1480,7 @@ const io = new IntersectionObserver(entries => {
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
 document.querySelectorAll(
-  '.reveal, .stat-item, .cert-row, .about-visual, .faq-item, .cta-strip p, .btn-white, .clients-header'
+  '.reveal, .stat-item, .cert-row, .about-visual, .faq-item, .cta-strip p, .btn-white'
 ).forEach(el => io.observe(el));
 
 /* ── BENTO CARD 3D TILT + FEATURE LIST STAGGER ── */
@@ -1534,17 +1508,21 @@ document.querySelectorAll('.bento-card').forEach(card => {
 
   function charWrap(node, delayRef) {
     if (node.nodeType === 3) {
+      // Split by words, keeping spaces
       const parts = node.textContent.split(/(\s+)/);
       const frag = document.createDocumentFragment();
 
       parts.forEach(part => {
         if (!part.trim()) {
+          // It's whitespace — just add a space text node
           frag.appendChild(document.createTextNode('\u00a0'));
           return;
         }
+        // Wrap the whole word in a no-break container
         const wordWrap = document.createElement('span');
         wordWrap.className = 'cta-word';
 
+        // Then wrap each character inside that word
         [...part].forEach(ch => {
           delayRef.v += 0.03;
           const sp = document.createElement('span');
@@ -1608,6 +1586,7 @@ document.querySelectorAll('.faq-question').forEach(q => {
     if (!was) item.classList.add('active');
   });
 });
+</script>
 </script>
 </body>
 </html>
